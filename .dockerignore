@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# Data (exclude from regular Dockerfile, only include in standalone)
+ad_data.csv.zip
+
+# Test & Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Outputs
+results/
+docker_results/
+test_output/
+
+# Docs (not needed in runtime)
+docs/
+*.md
+!requirements.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# AI DevKit
+.ai-devkit.json
+AGENTS.md
+PROMPTS.md
+
+# Tests (not needed in production image)
+tests/

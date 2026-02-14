@@ -1,0 +1,17 @@
+{
+  "version": "0.11.0",
+  "environments": [
+    "cursor"
+  ],
+  "initializedPhases": [
+    "requirements",
+    "design",
+    "planning",
+    "implementation",
+    "testing",
+    "deployment",
+    "monitoring"
+  ],
+  "createdAt": "2026-02-14T09:58:08.428Z",
+  "updatedAt": "2026-02-14T09:58:08.455Z"
+}

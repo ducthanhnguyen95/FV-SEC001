@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+*.log
+pip-log.txt
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# Data files (too large for git)
+ad_data.csv
+ad_data.csv.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test / Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Environment
+.env
+
+# Docker
+docker_results/
+docker_standalone_results/
+*.tar.gz
+ad-aggregator*.tar.gz
+
+# AI DevKit local state
+.ai-devkit.json
+
+# Temporary files
+sample*.csv
+test_data/
+tmp/
+*.tmp

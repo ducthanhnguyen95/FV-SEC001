@@ -1,0 +1,48 @@
+# Standalone Dockerfile with data baked in
+# This creates a self-contained image that anyone can pull and run
+# WARNING: This creates a ~1.2GB image due to the 995MB CSV file
+# Build: docker build -f Dockerfile.standalone -t ad-aggregator:standalone .
+# Run: docker run --rm -v $(pwd)/results:/app/results ad-aggregator:standalone
+
+# Stage 1: Install dependencies
+FROM python:3.12-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --target=/app/deps -r requirements.txt
+
+# Stage 2: Runtime image
+FROM python:3.12-slim
+
+# Install required system packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# Security: run as non-root user
+RUN groupadd -g 1000 appuser && \
+    useradd -u 1000 -g appuser --create-home --shell /bin/bash appuser
+
+WORKDIR /app
+
+# Copy dependencies from builder
+COPY --from=builder /app/deps /usr/local/lib/python3.12/site-packages/
+
+# Copy application code
+COPY aggregator.py .
+COPY src/ src/
+
+# Copy data file (this makes the image large but self-contained)
+COPY ad_data.csv .
+
+# Create results directory with proper permissions
+RUN mkdir -p results && \
+    chown -R appuser:appuser /app
+
+USER appuser
+
+# Default: run with built-in data
+ENTRYPOINT ["python", "aggregator.py"]
+CMD ["-i", "ad_data.csv", "-o", "results/", "-v", "-b"]
